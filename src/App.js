@@ -3,6 +3,7 @@ import Contador from "./components/Contador";
 import Lista from "./components/Lista";
 import Formulario from "./components/Formulario";
 import FormHook from "./components/FormHook";
+import Ejemplo1 from "./components/Ejemplo1";
 
 function App() {
   return (
@@ -11,7 +12,8 @@ function App() {
       {/* <Contador /> */}
       {/* <Lista /> */}
       {/* <Formulario/> */}
-      <FormHook />
+      {/* <FormHook /> */}
+      <Ejemplo1 />
     </div>
   );
 }
