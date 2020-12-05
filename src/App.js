@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UserTable from "./components/UserTable";
 import { v4 as uuidv4 } from "uuid";
 import AddUserForm from "./components/AddUserForm";
@@ -10,7 +10,7 @@ function App() {
     { id: uuidv4(), name: "Craig", username: "siliconeidolon" },
     { id: uuidv4(), name: "Ben", username: "benisphere" },
   ];
-
+  const [isLoading, setIsLoading] = useState(true);
   const [users, setUsers] = useState(usersData);
   const [editing, setEditing] = useState(false);
   const [currentUser, setCurrentUser] = useState({
@@ -43,6 +43,25 @@ function App() {
     setEditing(false);
     setUsers(users.map((user) => (user.id === id ? updateUser : user)));
   };
+  // useEffect con saneamiento y sin saneamiento
+  // Sanear: limpiar para q la memoria no se sature, El efecto retornara una funcion de limpieza
+  useEffect(() => {
+    const timedID = setInterval(() => {
+      console.log("UseEffect");
+      setIsLoading(!isLoading);
+    }, 2000);
+    return () => {
+      clearInterval(timedID);
+    };
+  });
+  // Si useEffect no retorna nada, solo se ejcuta una vez
+  useEffect(() => {
+    console.log("Only one time!");
+  }, []);
+  // Si useEffect tiene parametro este efecto se realizara cada vez que el parametro cambie
+  useEffect(() => {
+    console.log("Only one time!");
+  }, [isLoading]);
   return (
     <div className="container">
       <h1>CRUD WITH HOOKS</h1>
